@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numeros IA</title>
+    <!-- Import TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <!-- Import tfjs-vis -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
+    <!-- Import the data file -->
+    <script src="data.js" type="module"></script>
+    <!-- Import the main script file -->
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="canva-cont"> 
+        <div id="canvas-container"></div>
+    </div>
+   
+    <div class="container" id="container">
+        
+        <div id="prediction"></div>
+        <div id="controls">
+            <button id="predict">Aceptar</button>
+            <button id="clear" class="btn-limpiar">Limpiar</button>
+        </div>
+    <script src="paint.js" type="module"></script>
+</body>
+</html>
