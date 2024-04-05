@@ -1,9 +1,6 @@
 //import {model} from './script.js';
 import {predecir} from './script.js';
 (function () {
-    // Creates a new canvas element and appends it as a child
-    // to the parent element, and returns the reference to
-    // the newly created canvas element
     var model;
     async function loadModel() {
         model = await tf.loadLayersModel('./modelo.json');
@@ -25,7 +22,6 @@ import {predecir} from './script.js';
     async function init(container, width, height, fillColor) {
     var canvas = createCanvas(container, width, height);
     var ctx = canvas.context;
-    //define a custom fillCircle method
     ctx.fillCircle = function (x, y, radius, fillColor) {
         this.fillStyle = fillColor;
         this.beginPath();
@@ -38,15 +34,13 @@ import {predecir} from './script.js';
         ctx.fillRect(0, 0, width, height);
     };
     ctx.clearTo(fillColor || "#ffffff");
- 
-    // bind mouse events
     canvas.node.onmousemove = function (e) {
         if (!canvas.isDrawing) {
         return;
         }
         var x = e.pageX - this.offsetLeft;
         var y = e.pageY - this.offsetTop;
-        var radius = 7; // or whatever
+        var radius = 7; 
         var fillColor = '#000000';
         ctx.fillCircle(x, y, radius, fillColor);
     };
@@ -78,21 +72,13 @@ import {predecir} from './script.js';
     function recognizeNumber() {
         var canvas = document.getElementById('canvas');
         var ctx = canvas.getContext('2d');
- 
-        // console.log(ctx.getImageData(0,0, 100, 100));
         var imageData = ctx.getImageData(0, 0, 100, 100);
         var tfImage = tf.browser.fromPixels(imageData, 1);
- 
-        //Resize to 28X28
         var tfResizedImage = tf.image.resizeBilinear(tfImage, [28,28]);
-        //Since white is 255 black is 0 so need to revert the values
-        //so that white is 0 and black is 255
         tfResizedImage = tf.cast(tfResizedImage, 'float32');
         tfResizedImage = tf.abs(tfResizedImage.sub(tf.scalar(255)))
             .div(tf.scalar(255)).flatten();
         tfResizedImage = tfResizedImage.reshape([-1, 28, 28, 1]);
- 
-        //Make another dimention as the model expects
         console.log(tfResizedImage.dataSync());
         console.log(tfResizedImage);
         predict(tfResizedImage);
